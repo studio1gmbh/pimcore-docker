@@ -60,11 +60,11 @@ jobs:
                 run: |
                     set -eux;
                                         
-                    if [[ "${{ matrix.tag }}" =~ ^v?2.[0-9x]+(\-\d+)?$ ]]; then
+                    #if [[ "${{ matrix.tag }}" =~ ^v?2.[0-9x]+(\-\d+)?$ ]]; then
                         imageVariants=("min" "default" "max" "debug" "supervisord")
-                    else 
-                        imageVariants=("fpm" "debug" "supervisord")
-                    fi
+                    #else 
+                    #    imageVariants=("fpm" "debug" "supervisord")
+                    #fi
                     
                     
                     for imageVariant in ${imageVariants[@]}; do
