@@ -25,9 +25,9 @@ jobs:
                     #- { tag: 'v1.3', php: '8.0', distro: bullseye, version-override: "", latest-tag: true }
                     #- { tag: 'v1.3', php: '8.1', distro: bullseye, version-override: "", latest-tag: true }
                     #- { tag: 'v1.3', php: '8.2', distro: bullseye, version-override: "", latest-tag: false }
-                    #- { tag: 'v2.0', php: '8.2', distro: bullseye, version-override: "", latest-tag: true }
-                    - { tag: 'v2.1-2', php: '8.2', distro: bullseye, version-override: "", latest-tag: false }
-                    #- { tag: '2.x', php: '8.2', distro: bullseye, version-override: "", latest-tag: false }
+                    - { tag: 'v2.0', php: '8.2', distro: bullseye, version-override: "", latest-tag: true }
+                    - { tag: 'v2.0-0', php: '8.2', distro: bullseye, version-override: "", latest-tag: false }
+                    - { tag: '2.x', php: '8.2', distro: bullseye, version-override: "v2-dev", latest-tag: false }
 
         steps:
             -   uses: actions/checkout@v3
