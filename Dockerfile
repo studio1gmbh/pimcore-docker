@@ -14,7 +14,7 @@ RUN set -eux; \
     apt-get upgrade -y; \
     \
     # tools used by Pimcore
-    apt-get install -y iproute2 unzip; \
+    apt-get install -y iproute2 unzip zip; \
     \
     # dependencies fór building PHP extensions
     apt-get install -y \
