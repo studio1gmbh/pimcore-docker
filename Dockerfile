@@ -15,6 +15,7 @@ RUN set -eux; \
     \
     # tools used by Pimcore
     apt-get install -y iproute2 unzip zip; \
+    apt-get install -y ssmtp; \
     \
     # dependencies fór building PHP extensions
     apt-get install -y \
