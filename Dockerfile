@@ -28,6 +28,9 @@ RUN set -eux; \
         libzip-dev \
         zlib1g-dev \
         librabbitmq-dev \
+        # studio1 start
+        nodejs npm cifs-utils iputils-ping htop nano m4 \
+        # studio1 end
     ; \
     \
     docker-php-ext-configure gd --enable-gd --with-jpeg; \
@@ -59,10 +62,13 @@ RUN set -eux; \
 COPY files/conf/php/php.ini /usr/local/etc/php/conf.d/20-pimcore.ini
 COPY files/conf/php-fpm/php-fpm.conf /usr/local/etc/php-fpm.d/zz-www.conf
 
+RUN echo "user = root" >> /usr/local/etc/php-fpm.d/zz-docker.conf; \
+    echo "group = root" >> /usr/local/etc/php-fpm.d/zz-docker.conf;
+
 # env php.ini
-ENV PHP_MEMORY_LIMIT "256M"
-ENV PHP_POST_MAX_SIZE "100M"
-ENV PHP_UPLOAD_MAX_FILESIZE "100M"
+ENV PHP_MEMORY_LIMIT "1024M"
+ENV PHP_POST_MAX_SIZE "1024M"
+ENV PHP_UPLOAD_MAX_FILESIZE "1024M"
 ENV PHP_DISPLAY_STARTUP_ERRORS 1
 ENV PHP_MAX_EXECUTION_TIME "30"
 ENV PHP_ERROR_REPORTING "E_ALL"
@@ -90,7 +96,7 @@ COPY --from=composer/composer:2-bin /composer /usr/local/bin/composer
 
 WORKDIR /var/www/html
 
-CMD ["php-fpm"]
+CMD ["php-fpm", "--allow-to-run-as-root"]
 
 
 
@@ -168,7 +174,7 @@ RUN set -eux; \
     \
     sync
 
-CMD ["php-fpm"]
+CMD ["php-fpm", "--allow-to-run-as-root"]
 
 
 
@@ -202,7 +208,7 @@ RUN set -eux; \
     \
     sync
 
-CMD ["php-fpm"]
+CMD ["php-fpm", "--allow-to-run-as-root"]
 
 
 
@@ -227,7 +233,7 @@ ENV PHP_IDE_CONFIG serverName=localhost
 COPY --chmod=0755 files/entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["php-fpm", "--allow-to-run-as-root"]
 
 
 
