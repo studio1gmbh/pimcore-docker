@@ -31,7 +31,6 @@ RUN set -eux; \
         # studio1 start
         nodejs npm cifs-utils iputils-ping htop nano m4 \
         # studio1 end
-
     ; \
     \
     docker-php-ext-configure gd --enable-gd --with-jpeg; \
