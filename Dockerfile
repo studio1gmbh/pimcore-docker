@@ -7,9 +7,9 @@ COPY files/build-cleanup.sh /usr/local/bin
 COPY files/build-install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/build-*
 
-RUN set -eux; \
-    DPKG_ARCH="$(dpkg --print-architecture)"; \
-    echo "deb https://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list; \
+RUN set -eux;
+RUN DPKG_ARCH="$(dpkg --print-architecture)";
+RUN echo "deb https://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list;
 
 RUN apt-get update;
 RUN apt-get upgrade -y;
