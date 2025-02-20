@@ -7,31 +7,30 @@ COPY files/build-cleanup.sh /usr/local/bin
 COPY files/build-install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/build-*
 
-RUN set -eux;
-RUN DPKG_ARCH="$(dpkg --print-architecture)";
-RUN echo "deb https://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list;
-
-RUN apt-get update;
-RUN apt-get upgrade -y;
-
-# tools used by Pimcore
-RUN apt-get install -y iproute2 unzip zip;
-
-# dependencies fór building PHP extensions
-RUN apt-get install -y libicu-dev zlib1g-dev libpng-dev libjpeg62-turbo-dev libzip-dev;
-RUN docker-php-ext-configure pcntl --enable-pcntl;
-RUN docker-php-ext-configure gd -enable-gd --with-jpeg;
-RUN docker-php-ext-install pcntl bcmath pdo_mysql exif zip opcache sockets gd intl;
-
-RUN ldconfig /usr/local/lib;
-RUN sync;
+RUN set -eux; \
+    DPKG_ARCH="$(dpkg --print-architecture)"; \
+    echo "deb http://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list; \
+    apt-get update; \
+    apt-get upgrade -y; \
+    \
+    # tools used by Pimcore
+    apt-get install -y iproute2 unzip zip; \
+    \
+    # dependencies fór building PHP extensions
+    apt-get install -y \
+        libicu-dev zlib1g-dev libpng-dev libjpeg62-turbo-dev libzip-dev; \
+    \
+    docker-php-ext-configure pcntl --enable-pcntl; \
+    docker-php-ext-configure gd -enable-gd --with-jpeg; \
+    docker-php-ext-install pcntl bcmath pdo_mysql exif zip opcache sockets gd intl; \
+    \
+    ldconfig /usr/local/lib; \
+    \
+    sync;
     
 RUN apt-get install -y openssh-client nodejs npm cifs-utils iputils-ping htop nano autoconf automake libtool m4 librabbitmq-dev; \
     pecl install amqp; \
     docker-php-ext-enable amqp;
-
-RUN RUN apt-get install -y libldb-dev libldap2-dev; \
-    docker-php-ext-install ldap;
 
 RUN set -eux; build-cleanup.sh;
 
