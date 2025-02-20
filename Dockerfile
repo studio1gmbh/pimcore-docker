@@ -11,8 +11,8 @@ RUN set -eux; \
     echo "DEBUG: set -eux"; \
     DPKG_ARCH="$(dpkg --print-architecture)"; \
     echo "DEBUG: DPKG_ARCH"; \
-    echo "deb http://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list; \
-    echo "DEBUG: deb http://deb.debian.org/debian .........."; \
+    echo "deb https://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list; \
+    echo "DEBUG: deb https://deb.debian.org/debian .........."; \
     apt-get update; \
     echo "DEBUG: apt-get update"; \
     apt-get upgrade -y; \
