@@ -32,6 +32,9 @@ RUN apt-get install -y openssh-client nodejs npm cifs-utils iputils-ping htop na
     pecl install amqp; \
     docker-php-ext-enable amqp;
 
+RUN RUN apt-get install -y libldb-dev libldap2-dev; \
+    docker-php-ext-install ldap;
+
 RUN set -eux; build-cleanup.sh;
 
 RUN echo "upload_max_filesize = 1024M" >> /usr/local/etc/php/conf.d/20-pimcore.ini; \
