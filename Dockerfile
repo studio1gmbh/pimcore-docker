@@ -8,36 +8,25 @@ COPY files/build-install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/build-*
 
 RUN set -eux; \
-    echo "DEBUG: set -eux"; \
     DPKG_ARCH="$(dpkg --print-architecture)"; \
-    echo "DEBUG: DPKG_ARCH"; \
     echo "deb https://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list; \
-    echo "DEBUG: deb https://deb.debian.org/debian .........."; \
     apt-get update; \
-    echo "DEBUG: apt-get update"; \
     apt-get upgrade -y; \
-    echo "DEBUG: upgrade -y"; \
     \
     # tools used by Pimcore
     apt-get install -y iproute2 unzip zip; \
-    echo "DEBUG: apt-get install -y iproute2 unzip zip"; \
     \
     # dependencies fór building PHP extensions
     apt-get install -y \
         libicu-dev zlib1g-dev libpng-dev libjpeg62-turbo-dev libzip-dev; \
-    echo "DEBUG: apt-get install -y libicu-dev zlib1g-dev libpng-dev libjpeg62-turbo-dev libzip-dev"; \
     \
     docker-php-ext-configure pcntl --enable-pcntl; \
-    echo "DEBUG: docker-php-ext-configure pcntl --enable-pcntl"; \
     docker-php-ext-configure gd -enable-gd --with-jpeg; \
-    echo "DEBUG: docker-php-ext-configure gd -enable-gd --with-jpeg"; \
     docker-php-ext-install pcntl bcmath pdo_mysql exif zip opcache sockets gd intl; \
-    echo "DEBUG: docker-php-ext-install pcntl bcmath pdo_mysql exif zip opcache sockets gd intl"; \
     \
     ldconfig /usr/local/lib; \
-    echo "DEBUG: ldconfig /usr/local/lib"; \
     \
-    sync; echo "DEBUG: sync";
+    sync;
     
 RUN apt-get install -y openssh-client nodejs npm cifs-utils iputils-ping htop nano autoconf automake libtool m4 librabbitmq-dev; \
     pecl install amqp; \
