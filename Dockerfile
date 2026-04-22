@@ -187,11 +187,6 @@ RUN set -eux; \
         libreoffice \
         libxml2-dev \
         openssl \
-        # start otel dependencies
-        gcc \
-        make \
-        autoconf \
-        # end otel dependencies
     ; \
     \
     pecl install -f \
@@ -208,13 +203,6 @@ RUN set -eux; \
     ; \
     \
     build-cleanup.sh; \
-    
-    # start otel extensions (these get removed by the cleanup)
-    apt-get install -y \
-        opentelemetry \
-        protobuf \
-    ; \
-    # end otel extensions
     \
     sync
 
