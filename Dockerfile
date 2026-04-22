@@ -189,11 +189,17 @@ RUN set -eux; \
         openssl \
     ; \
     \
+    pecl install -f \
+        opentelemetry \
+        protobuf \
+    ; \
+    \
     docker-php-ext-install \
         soap \
     ; \
     docker-php-ext-enable \
         soap \
+        opentelemetry \
     ; \
     \
     build-cleanup.sh; \
