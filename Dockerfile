@@ -162,6 +162,15 @@ RUN set -eux; \
         imagick \
         redis \
     ; \
+    # OpenTelemetry
+    pecl install -f \
+        opentelemetry \
+        protobuf \
+    ; \
+    \
+    docker-php-ext-enable \
+        opentelemetry \
+    ; \
     \
     build-cleanup.sh; \
     \
@@ -189,17 +198,8 @@ RUN set -eux; \
         openssl \
     ; \
     \
-    pecl install -f \
-        opentelemetry \
-        protobuf \
-    ; \
-    \
     docker-php-ext-install \
         soap \
-    ; \
-    docker-php-ext-enable \
-        soap \
-        opentelemetry \
     ; \
     \
     build-cleanup.sh; \
